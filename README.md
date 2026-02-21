@@ -29,5 +29,6 @@ First of all F you, because apparently there isn't any native compiler for windo
 
 ## Troubleshooting
 
-Doesn't work? Sucks to be you ¯\_(ツ)_/¯ I'm on a stage of screw-the-tech-return-to-paper. If you need help I suggest you also relearn how to use the damn pen.
+Doesn't work? Sucks to be you ¯\\_(ツ)_/¯ I'm on a stage of screw-the-tech-return-to-paper. If you need help I suggest you also relearn how to use the damn pen.
+
 
