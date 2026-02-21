@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/org/gtkmm/winda">
+        <file alias="icons/48x48/apps/winda.png">src/winda.png</file>
+    </gresource>
+</gresources>
