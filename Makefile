@@ -23,9 +23,14 @@ LRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
 
 lbuild: cleanup copyb lresource
 	$(compiler) build/resources.o $(src_file) -o app/$(project_name) $(LDF)
+	ldd app/$(project_name) | awk '{if ($$3 ~ /^\//) print $$3}' | xargs -I{} cp --parents {} app/
+	patchelf --set-rpath '$$ORIGIN:$$ORIGIN/lib:$$ORIGIN/lib/x86_64-linux-gnu:$$ORIGIN/usr/lib:$$ORIGIN/usr/lib/x86_64-linux-gnu' app/$(project_name)
 
 lrelease: cleanup copyr lresource
 	$(compiler) build/resources.o $(src_file) -o release/$(project_name) $(LRF)
+	ldd release/$(project_name) | awk '{if ($$3 ~ /^\//) print $$3}' | xargs -I{} cp --parents {} release/
+	patchelf --set-rpath '$$ORIGIN:$$ORIGIN/lib:$$ORIGIN/lib/x86_64-linux-gnu:$$ORIGIN/usr/lib:$$ORIGIN/usr/lib/x86_64-linux-gnu' release/$(project_name)
+	strip release/$(project_name)
 
 lresource:
 	glib-compile-resources --generate-source --target=build/resources.c src/resources.xml

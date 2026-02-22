@@ -2,6 +2,7 @@
 #include <gtkmm.h>
 #include <glibmm/fileutils.h>  // For css file loading
 #include "locate_binary.h"
+#include <filesystem>
 
 class MyWindow : public Gtk::Window {
 public:
@@ -39,10 +40,16 @@ MyWindow::MyWindow() {
 
 int main(int argc, char* argv[]){
 
-  Glib::setenv("GTK_CSD", "0", true);  // Disable CSD for native windows look
+  Glib::setenv("GTK_CSD", "0", true);  // Disable CSD for native window decorations
+#ifndef _WIN32
+  std::string bin_dir = get_binary_directory ();
+  Glib::setenv("GDK_PIXBUF_MODULE_FILE", bin_dir + "/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache", true);
+  Glib::setenv("GSETTINGS_SCHEMA_DIR", bin_dir + "/share/glib-2.0/schemas:" + Glib::getenv("GSETTINGS_SCHEMA_DIR"), true);
+  Glib::setenv("XDG_DATA_DIRS", bin_dir + "/share:" + Glib::getenv("XDG_DATA_DIRS"), true);
+#endif
 
   
-  auto myapp = Gtk::Application::create();
+  auto myapp = Gtk::Application::create("org.gtkmm.winda");
 
   return myapp->make_window_and_run<MyWindow>(argc, argv);
 }
