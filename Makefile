@@ -18,8 +18,8 @@ copyr:
 
 # Linux
 
-LDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 
-LRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23
+LDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
+LRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
 
 lbuild: cleanup copyb lresource
 	$(compiler) build/resources.o $(src_file) -o app/$(project_name) $(LDF)
@@ -34,7 +34,7 @@ lresource:
 
 # Windows
 
-WDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23
+WDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
 WRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -mwindows
 
 wbuild: cleanup wicon copyb
