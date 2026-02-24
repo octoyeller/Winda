@@ -30,7 +30,7 @@ lbuild: cleanup copyb lresource
 
 lrelease: cleanup copyr lresource
 	$(compiler) build/resources.o $(src_file) -o release/$(project_name) $(LRF)
-	./deps.sh release/$(project_name) release/
+	./ldeps.sh release/$(project_name) release/
 	patchelf --set-rpath '$$ORIGIN/lib/x86_64-linux-gnu/' release/$(project_name)
 	strip release/$(project_name)
 
