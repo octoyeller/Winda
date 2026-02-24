@@ -2,7 +2,7 @@
 
 Cross-platform template for GUI C++ apps utilizing GTK 4. Features proper window decorations. Creates a stand-alone bundle that should work even if half of your OS is gone.
 
-Developed on Debian 12 and tiny11. Tested on Arch v.?? and windows 11. You may want to read [docs](Docs.md).
+Developed on Debian 12 and tiny11. Tested on Ubuntu and windows 11. You may want to read [docs](Docs.md).
 
 ## Set up
 

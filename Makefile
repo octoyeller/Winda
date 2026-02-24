@@ -18,17 +18,19 @@ copyr:
 
 # Linux
 
-LDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
-LRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++23 -Wall
+LDF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++17 -Wall
+LRF = $(shell pkg-config --cflags --libs gtkmm-4.0) -std=c++17 -Wall
 
 lbuild: cleanup copyb lresource
 	$(compiler) build/resources.o $(src_file) -o app/$(project_name) $(LDF)
-	ldd app/$(project_name) | awk '{if ($$3 ~ /^\//) print $$3}' | xargs -I{} cp --parents {} app/
+	./ldeps.sh app/$(project_name) app/
+	ldd app/$(project_name) > build/dependencies
 	patchelf --set-rpath '$$ORIGIN/lib/x86_64-linux-gnu/' app/$(project_name)
+	ldd app/$(project_name) > build/actual
 
 lrelease: cleanup copyr lresource
 	$(compiler) build/resources.o $(src_file) -o release/$(project_name) $(LRF)
-	ldd release/$(project_name) | awk '{if ($$3 ~ /^\//) print $$3}' | xargs -I{} cp --parents {} release/
+	./deps.sh release/$(project_name) release/
 	patchelf --set-rpath '$$ORIGIN/lib/x86_64-linux-gnu/' release/$(project_name)
 	strip release/$(project_name)
 
