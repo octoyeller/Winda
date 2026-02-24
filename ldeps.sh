@@ -39,6 +39,12 @@ while [ -n "$to_process" ]; do
   done
 done
 
+gtks=$(ls /lib/x86_64-linux-gnu/ | grep gtk)
+for gtk in $gtks; do
+  cp -r --parents -L "/lib/x86_64-linux-gnu/$gtk" "$target_dir"
+done
+
+
 # Cleanup
 rm -f "$seen"
 
